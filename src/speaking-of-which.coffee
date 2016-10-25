@@ -20,16 +20,6 @@ module.exports = (robot) ->
   unless commands?
     commands = []
 
-  robot.listen(
-    (m) ->
-      if m?.text?
-        commands.findIndex((c) -> m.text
-          .toLowerCase().indexOf(c.trigger) != -1) + 1
-      else false
-    (res) ->
-      res.send "Speaking of #{commands[res.match - 1].trigger}:\n#{res.random(commands[res.match - 1].responses)}"
-  )
-
   robot.respond /speaking of (\w*):\s*(.*)/i, (res) ->
     trigger = res.match[1].toLowerCase()
     response = res.match[2]
@@ -43,6 +33,7 @@ module.exports = (robot) ->
       res.reply "I will remember '#{response}' too when someone speaks about #{trigger}"
       commands[i].responses.push(response)
 
+    res.finish()
     robot.brain.set 'speakingOfWhich', commands
 
   robot.respond /forget about (.*)/i, (res) ->
@@ -53,3 +44,14 @@ module.exports = (robot) ->
     else
       commands.splice i, 1
       res.reply "Sure thing, i don't know anything about #{trigger} anymore"
+    res.finish()
+
+  robot.listen(
+    (m) ->
+      if m?.text?
+        commands.findIndex((c) -> m.text
+          .toLowerCase().indexOf(c.trigger) != -1) + 1
+      else false
+    (res) ->
+      res.send "Speaking of #{commands[res.match - 1].trigger}:\n#{res.random(commands[res.match - 1].responses)}"
+  )
