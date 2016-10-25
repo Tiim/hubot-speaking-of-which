@@ -1,7 +1,7 @@
 {
   "name": "hubot-speaking-of-which",
   "description": "A hubot script that listens for predefined keywords and sends a random answer belonging to that keyword.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Tiim",
   "license": "MIT",
   "keywords": ["hubot","hubot-scripts"],
