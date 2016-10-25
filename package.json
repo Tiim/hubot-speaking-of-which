@@ -1,0 +1,22 @@
+{
+  "name": "hubot-speaking-of-which",
+  "description": "A hubot script that listens for predefined keywords and sends a random answer belonging to that keyword.",
+  "version": "0.0.0",
+  "author": "Tiim",
+  "license": "MIT",
+  "keywords": ["hubot","hubot-scripts"],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Tiim/hubot-speaking-of-which.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tiim/hubot-speaking-of-which/issues"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6"
+  },
+  "devDependencies": {
+
+  },
+  "main": "index.coffee"
+}
