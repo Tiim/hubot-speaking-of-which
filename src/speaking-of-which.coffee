@@ -20,6 +20,15 @@ module.exports = (robot) ->
   unless commands?
     commands = []
 
+  robot.listen(
+    (m) ->
+      if m?.text?
+        commands.findIndex((c) -> m.text
+          .toLowerCase().indexOf(c.trigger) != -1) + 1
+      else false
+    (res) ->
+      res.send "Speaking of #{commands[res.match - 1].trigger}:\n#{res.random(commands[res.match - 1].responses)}"
+  )
 
   robot.respond /speaking of (\w*):\s*(.*)/i, (res) ->
     trigger = res.match[1].toLowerCase()
@@ -44,14 +53,3 @@ module.exports = (robot) ->
     else
       commands.splice i, 1
       res.reply "Sure thing, i don't know anything about #{trigger} anymore"
-
-
-  robot.listen(
-    (m) ->
-      if m?.text?
-        commands.findIndex((c) -> m.text
-          .toLowerCase().indexOf(c.trigger) != -1) + 1
-      else false
-    (res) ->
-      res.send "Speaking of #{commands[res.match - 1].trigger}:\n#{res.random(commands[res.match - 1].responses)}"
-  )
