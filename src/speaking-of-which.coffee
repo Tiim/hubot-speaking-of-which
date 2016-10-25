@@ -22,9 +22,12 @@ module.exports = (robot) ->
 
   robot.respond /speaking of (\w*):\s*(.*)/i, (res) ->
     trigger = res.match[1].toLowerCase()
+    if trigger.length < 3
+      res.reply "I'm sorry but somehow I can't remember #{trigger}. Maybe try something more descriptive?"
+      return
     response = res.match[2]
     i = commands.findIndex((c) -> c.trigger == trigger)
-    if (i == -1)
+    if i == -1
       res.reply "I will remember '#{response}' when someone speaks about #{trigger}"
       commands.push(
         {trigger: trigger, responses: [response]}
